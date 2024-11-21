@@ -1,0 +1,22 @@
+use std::io;
+fn main(){
+    let mut str=String::new();
+    io::stdin().read_line(&mut str).expect("Failed to read line");
+    let str=str.trim();
+    let mut now=1;
+    let mut answer=1;
+    let mut  position=0;
+    for i in 1..str.len(){
+        if str.chars().nth(i).unwrap()=='0'{
+            position=i+1;
+            now=1;
+            continue;
+        }
+        now*=str.chars().nth(i).unwrap() as u64-'0' as u64;
+        if i>=position+13{
+            now/=str.chars().nth(i-13).unwrap() as u64-'0' as u64;
+            answer=answer.max(now);
+        }
+    }
+    println!("{}",answer);
+}
